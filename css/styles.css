@@ -350,7 +350,7 @@ h3 {
   margin-bottom: 8px;
 }
 
-/* ========== TEAM (container ile hizalı) ========== */
+/* ========== TEAM ========== */
 .team {
   background: var(--light);
   padding: 72px 0;
@@ -406,7 +406,7 @@ h3 {
   background: var(--primary-dark);
 }
 
-/* ========== PORTFOLIO (kart 360px) ========== */
+/* ========== PORTFOLIO ========== */
 .portfolio {
   padding: 120px 0;
 }
@@ -419,11 +419,11 @@ h3 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
-  justify-content: center; /* sabit genişlikli kartları ortala */
+  justify-content: center;
 }
 .portfolio__item {
   width: 100%;
-  max-width: 360px; /* 320'de taşmayı önlemek için width:100%; */
+  max-width: 360px;
   border: 1px solid var(--border);
   background: #fff;
   justify-self: center;
