@@ -1,4 +1,4 @@
-/* ===================== GENEL / RESET ===================== */
+/* ========== RESET & TOKENS ========== */
 *,
 *::before,
 *::after {
@@ -25,44 +25,48 @@ body {
   color: var(--text);
   letter-spacing: 0.02em;
   line-height: 1.5;
-  background-color: #fff;
+  background: #fff;
 }
-
 img {
   display: block;
   max-width: 100%;
   height: auto;
 }
 ul {
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 address {
   font-style: normal;
 }
 
+/* ========== CONTAINER (320 / 768 / 1440) ========== */
 .container {
   width: 100%;
-  max-width: 1158px;
+  max-width: 320px; /* mobile */
   margin: 0 auto;
   padding: 0 16px;
 }
-
-.hero,
-.team,
-.footer {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding-left: 0;
-  padding-right: 0;
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px; /* tablet */
+    padding: 0 12px; /* 2×360 + 24 gap = 744px => 768-744=24 => 12px kenar */
+  }
+}
+@media (min-width: 1158px) {
+  .container {
+    width: 100%;
+    max-width: 1440px; /* desktop */
+    padding: 0 120px; /* mockup iç boşluğu */
+  }
 }
 
-/* ===================== TİPOGRAFİ ===================== */
+/* ========== TYPO ========== */
 h1,
 h2,
 h3,
@@ -70,39 +74,25 @@ p {
   margin: 0;
 }
 h1 {
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.12;
+  font: 700 32px/1.12 "Roboto", sans-serif;
 }
 h2 {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.2;
+  font: 700 28px/1.2 "Roboto", sans-serif;
 }
 h3 {
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 1.2;
+  font: 500 20px/1.2 "Roboto", sans-serif;
 }
-p {
-  font-size: 16px;
-}
-
 .icon {
   display: inline-block;
   vertical-align: middle;
   fill: currentColor;
-  stroke: none;
 }
 
-/* ===================== LOGO ===================== */
+/* ========== LOGO ========== */
 .logo {
-  font-family: "Raleway", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
+  font: 700 18px/1.17 "Raleway", sans-serif;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  line-height: 1.17;
 }
 .logo__part--primary {
   color: var(--primary);
@@ -114,7 +104,7 @@ p {
   color: var(--light);
 }
 
-/* ===================== HEADER ===================== */
+/* ========== HEADER (MOBILE FIRST) ========== */
 .header {
   border-bottom: 1px solid var(--border);
   padding: 16px 0;
@@ -123,14 +113,21 @@ p {
   align-items: center;
 }
 .header__inner {
-  display: flex;
-  justify-content: space-between;
+  display: block;
   align-items: center;
+  width: 200px;
+}
+.header__inner-menu {
+  display: block;
+  align-items: center;
+  width: 30px;
 }
 
 .header__nav,
 .header__contacts {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .nav__list {
@@ -143,7 +140,7 @@ p {
   padding: 8px 0;
   color: var(--text);
   font-weight: 500;
-  transition: color 0.25s ease;
+  transition: color 0.25s;
 }
 .nav__link:hover,
 .nav__link:focus {
@@ -181,22 +178,21 @@ p {
   color: var(--primary-dark);
 }
 
-/* ===================== MOBİL MENÜ ===================== */
+/* === Mobil Menü (checkbox hack) === */
 .menu__button {
-  position: relative;
-  z-index: 1100;
-  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   padding: 4px;
   border: 0;
-  width: auto;
-  height: auto;
-  line-height: 0;
+  background: none;
   cursor: pointer;
 }
-
 .icon__menu {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   fill: var(--text);
 }
 
@@ -211,7 +207,7 @@ p {
   background: rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.25s;
   z-index: 1090;
 }
 #mobile-menu__toggle:checked ~ .mobile-backdrop {
@@ -233,6 +229,19 @@ p {
   transform: translateX(0);
 }
 
+.menu-close-container {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.menu-close {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .mobile-nav {
   display: grid;
   grid-template-rows: auto 1fr auto auto;
@@ -248,87 +257,60 @@ p {
   font-weight: 700;
   font-size: 36px;
   line-height: 1.11;
-  letter-spacing: 0.02em;
   color: var(--text);
 }
 .mobile-elements a:hover {
   color: var(--primary-dark);
 }
-
-.menu-close-container {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-}
-.menu-close {
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
 .mobile-address {
   margin-top: auto;
   display: grid;
   gap: 12px;
 }
 .mobile-address a[href^="tel"] {
-  font-size: 20px;
-  font-weight: 600;
   color: var(--primary);
+  font-weight: 600;
+  font-size: 20px;
 }
 .mobile-address a[href^="mailto"] {
   color: var(--muted);
 }
-
 .mobile-menu__social {
   display: flex;
   gap: 24px;
-  margin-top: 8px;
 }
 .social-btn-menu {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background: var(--primary);
   color: #fff;
-}
-.mobile-icon {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ===================== HERO ===================== */
+/* ========== HERO ========== */
 .hero {
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   text-align: center;
   padding: 100px 0;
   min-height: 432px;
-  background-image: linear-gradient(
-      rgba(46, 47, 66, 0.7),
-      rgba(46, 47, 66, 0.7)
-    ),
-    url("../images/office@1x.jpg");
+  background: linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)),
+    url("../images/office@1x.jpg") center/cover no-repeat;
 }
-@media (min-resolution: 2dppx) {
+@media (min-resolution: 2dppx), (min-resolution: 192dpi) {
   .hero {
-    background-image: linear-gradient(
-        rgba(46, 47, 66, 0.7),
-        rgba(46, 47, 66, 0.7)
-      ),
-      url("../images/office@2x.jpg");
+    background: linear-gradient(rgba(46, 47, 66, 0.7), rgba(46, 47, 66, 0.7)),
+      url("../images/office@2x.jpg") center/cover no-repeat;
   }
+}
+.hero__inner {
+  max-width: 1158px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 .hero__title {
   color: #fff;
-  font-size: 32px;
   max-width: 496px;
   margin: 0 auto 32px;
 }
@@ -338,7 +320,6 @@ p {
   border-radius: 4px;
   border: 0;
   cursor: pointer;
-  font-size: 14px;
   font-weight: 500;
 }
 .hero__button {
@@ -349,114 +330,128 @@ p {
   background: var(--primary-dark);
 }
 
-/* ===================== FEATURES ===================== */
+/* ========== FEATURES ========== */
 .features {
-  padding: 72px 0;
-}
-.features__icon {
-  display: none;
+  padding: 96px 0;
 }
 .features__list {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 10px;
+}
+.features__item {
+  border-radius: 4px;
+  background: #fff;
+}
+.features__icon {
+  display: none;
 }
 .features__title {
   margin-bottom: 8px;
-  color: var(--text);
 }
 
-/* ===================== TEAM ===================== */
+/* ========== TEAM (container ile hizalı) ========== */
 .team {
   background: var(--light);
   padding: 72px 0;
   text-align: center;
 }
+.team__title,
+.team__list {
+  max-width: 1158px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
 .team__title {
   margin-bottom: 48px;
-  color: var(--text);
 }
+
 .team__list {
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
   gap: 24px;
+  justify-content: center;
+  justify-items: center;
 }
 .team-card {
+  max-width: 264px;
+  width: 100%;
   background: #fff;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 1px rgba(46, 47, 66, 0.08), 0 1px 1px rgba(46, 47, 66, 0.16),
+    0 1px 6px rgba(46, 47, 66, 0.08);
   padding-bottom: 32px;
-  max-width: 264px;
 }
 .team-card__name {
   margin: 32px 0 8px;
-  color: var(--text);
-}
-.team-card__role {
-  margin: 0;
 }
 .team-card__social {
   display: flex;
-  justify-content: center;
   gap: 24px;
+  justify-content: center;
   margin-top: 16px;
 }
 .social-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #4a63f0;
   color: #fff;
-  transition: background 0.25s;
 }
 .social-btn:hover {
   background: var(--primary-dark);
 }
 
-/* ===================== PORTFOLIO ===================== */
+/* ========== PORTFOLIO (kart 360px) ========== */
 .portfolio {
-  padding: 72px 0;
+  padding: 120px 0;
 }
 .portfolio__title {
   text-align: center;
-  margin-bottom: 48px;
-  color: var(--text);
+  margin-bottom: 72px;
 }
+
 .portfolio__list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
+  justify-content: center; /* sabit genişlikli kartları ortala */
 }
 .portfolio__item {
-  background: #fff;
+  width: 100%;
+  max-width: 360px; /* 320'de taşmayı önlemek için width:100%; */
   border: 1px solid var(--border);
-  transition: box-shadow 0.25s;
+  background: #fff;
+  justify-self: center;
 }
-.portfolio__item:hover {
-  box-shadow: 0 2px 10px rgba(46, 47, 66, 0.08);
+.portfolio__overlay {
+  display: block;
 }
 .portfolio__card {
   position: relative;
-  border: 1px solid var(--border);
   overflow: hidden;
+}
+.portfolio__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
 }
 .card__text {
   position: absolute;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--primary);
   color: var(--light);
   font-size: 14px;
   line-height: 1.5;
   padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: left;
   opacity: 0;
   transition: opacity 0.25s;
 }
@@ -464,18 +459,14 @@ p {
   opacity: 1;
 }
 .portfolio__body {
-  padding: 16px;
+  padding: 32px 16px;
   text-align: left;
 }
 .portfolio__name {
   margin-bottom: 8px;
-  color: var(--text);
-}
-.portfolio__category {
-  margin: 0;
 }
 
-/* ===================== MODAL ===================== */
+/* ========== MODAL ========== */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -491,7 +482,7 @@ p {
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(46, 47, 66, 0.4);
   display: none;
   justify-content: center;
   align-items: center;
@@ -500,35 +491,30 @@ p {
 .is-open {
   display: flex;
 }
-
 .modal__content {
   width: 100%;
   max-width: 408px;
   background: #fff;
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 24px;
   position: relative;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 2px 1px rgba(0, 0, 0, 0.2);
 }
 .modal__title {
   margin: 72px 0 16px;
-  font-size: 16px;
   font-weight: 500;
-  color: var(--text);
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 .modal__close {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 16px;
+  right: 16px;
   width: 24px;
   height: 24px;
-  background: var(--border);
   border: none;
   border-radius: 50%;
+  background: #e7e9fc;
   cursor: pointer;
 }
 .icon--close {
@@ -541,7 +527,6 @@ p {
 .modal__close:hover .icon--close {
   fill: #fff;
 }
-
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -568,8 +553,8 @@ p {
   width: 100%;
   height: 40px;
   padding-left: 32px;
-  border-radius: 4px;
   border: 1px solid rgba(46, 47, 66, 0.4);
+  border-radius: 4px;
 }
 .form__control:focus {
   outline: none;
@@ -592,18 +577,14 @@ p {
 .form__control:focus + .form__icon {
   fill: var(--primary);
 }
-textarea {
-  font-size: 12px;
-}
-
 .form__checkbox-box {
   width: 16px;
   height: 16px;
   border: 1px solid var(--text);
   border-radius: 2px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
 .form__checkbox-icon {
   width: 9.5px;
@@ -617,18 +598,6 @@ textarea {
 .form__checkbox:checked + .form__checkbox-box .form__checkbox-icon {
   fill: #fff;
 }
-.form__checkbox-box:hover {
-  border-color: var(--primary);
-}
-
-.privacy-policy a {
-  color: var(--primary-dark);
-  transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.privacy-policy a:hover {
-  color: var(--primary);
-}
-
 .form__btn {
   display: flex;
   justify-content: center;
@@ -639,28 +608,29 @@ textarea {
   height: 56px;
   border-radius: 4px;
   padding: 16px 32px;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
-  background: var(--primary);
-  color: #fff;
   border: 0;
+  color: #fff;
+  background: var(--primary);
   cursor: pointer;
 }
 .form__submit:hover {
   background: var(--primary-dark);
 }
 
-/* ===================== FOOTER ===================== */
+/* ========== FOOTER ========== */
 .footer {
   background: var(--bg-dark);
   color: var(--light);
-  width: auto;
-  padding: 64px 0;
+  padding: 100px 0;
 }
 .footer__inner {
+  max-width: 1158px;
+  margin: 0 auto;
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 32px;
+  align-items: center;
   text-align: center;
 }
 .footer__logo {
@@ -668,16 +638,12 @@ textarea {
   margin-bottom: 16px;
 }
 .footer__text {
-  color: var(--light);
   max-width: 264px;
   text-align: left;
 }
 .footer__social {
   display: grid;
   gap: 12px;
-}
-.footer__social-title {
-  color: var(--light);
 }
 .footer__social-list {
   display: flex;
@@ -693,12 +659,10 @@ textarea {
   border-radius: 50%;
   background: var(--primary);
   color: #fff;
-  transition: background 0.25s;
 }
 .social-btn--footer:hover {
   background: #31d0aa;
 }
-
 .subscribe {
   width: 100%;
   max-width: 453px;
@@ -708,27 +672,25 @@ textarea {
   flex-direction: column;
   gap: 16px;
 }
-.subscribe__label {
-  font-weight: 500;
-  color: #fff;
-}
 .subscribe__group {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
+  align-items: center;
+}
+.subscribe__label {
+  color: #fff;
+  font-weight: 500;
 }
 .subscribe__input {
+  width: 100%;
+  max-width: 288px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 4px;
   background: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  width: 288px;
-  height: 40px;
-  padding: 0 12px;
-}
-.subscribe__input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
 }
 .subscribe__button {
   display: inline-flex;
@@ -737,11 +699,10 @@ textarea {
   gap: 8px;
   width: 165px;
   height: 40px;
-  padding: 0 24px;
   border-radius: 4px;
+  border: 0;
   background: var(--primary);
   color: #fff;
-  border: 0;
   cursor: pointer;
 }
 .subscribe__icon {
@@ -749,12 +710,8 @@ textarea {
   height: 20px;
 }
 
-/* ===================== TABLET ≥768 ===================== */
+/* ========== TABLET ≥768 ========== */
 @media (min-width: 768px) {
-  .container {
-    padding: 0 20px;
-  }
-
   .header {
     padding: 24px 0;
   }
@@ -762,22 +719,41 @@ textarea {
   .header__contacts {
     display: block;
   }
-  .contacts__list {
-    gap: 40px;
-  }
   .menu__button,
   #mobile-menu__toggle,
   .mobile-backdrop,
   .mobile-nav-container {
     display: none;
   }
+  .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: nowrap;
+  }
+  .nav__list {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+  }
+  .contacts__list {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    white-space: nowrap;
+  }
 
   .hero {
-    padding: 100px 0;
     min-height: 436px;
+    padding: 100px 0;
+  }
+  .hero__inner {
+    padding: 0 20px;
   }
   .hero__title {
     font-size: 36px;
+    margin-bottom: 32px;
   }
 
   .features {
@@ -785,9 +761,6 @@ textarea {
   }
   .features__list {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .features__icon {
-    display: none;
   }
 
   .team {
@@ -804,16 +777,15 @@ textarea {
     padding: 120px 0;
   }
   .portfolio__list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 360px);
   }
 
   .footer {
-    padding: 64px 32px;
-    text-align: left;
+    padding: 64px 0;
   }
   .footer__inner {
     max-width: 736px;
-    margin: 0 auto;
+    padding: 0 20px;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -821,6 +793,7 @@ textarea {
       "subscribe subscribe";
     column-gap: 24px;
     row-gap: 20px;
+    text-align: left;
     align-items: start;
   }
   .footer__brand {
@@ -833,29 +806,68 @@ textarea {
   .subscribe {
     grid-area: subscribe;
   }
+  .subscribe__group {
+    flex-direction: row;
+    align-items: center;
+  }
+  .subscribe__input {
+    max-width: 264px;
+  }
+}
+@media (max-width: 767px) {
+  .header__nav,
+  .header__contacts {
+    display: none;
+  }
+  .menu__button {
+    display: flex;
+  }
 }
 
-/* ===================== DESKTOP ≥1158 ===================== */
+/* ========== DESKTOP ≥1158 ========== */
 @media (min-width: 1158px) {
-  .container {
-    padding: 0 120px;
+  .header {
+    padding: 20px 0;
+  }
+  .header__inner {
+    gap: 48px;
+  }
+  .nav__list {
+    gap: 32px;
+  }
+  .contacts__list {
+    gap: 24px;
   }
 
   .hero {
     min-height: 600px;
     padding-top: 160px;
   }
+  .hero__inner {
+    padding: 0 120px;
+  }
+  .hero__title {
+    font-size: 56px;
+    line-height: 1.07;
+    margin-bottom: 48px;
+  }
+  .hero__button {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
 
   .features__list {
     grid-template-columns: repeat(4, 1fr);
   }
+  .features__item {
+    padding: 32px;
+  }
   .features__icon {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 28px 0;
-    margin-bottom: 18px;
+    height: 112px;
+    margin-bottom: 16px;
     background: var(--light);
     border: 1px solid #8e8f99;
     border-radius: 4px;
@@ -866,20 +878,24 @@ textarea {
   }
 
   .portfolio__list {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 360px);
     gap: 24px;
   }
 
   .footer {
-    padding: 100px 120px;
+    padding: 100px 0;
   }
   .footer__inner {
+    max-width: none;
+    padding: 0 120px;
     display: flex;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 32px;
+    justify-content: space-between;
+    gap: 120px;
     text-align: left;
   }
-  .footer__social {
-    margin-left: 120px;
+  .footer__brand {
+    width: 264px;
   }
 }
